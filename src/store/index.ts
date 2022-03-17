@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import chartReducer from './slices/stockSlice'
+import stockReducer from './slices/stockSlice'
 
 export const store = configureStore({
   reducer: {
-      chart: chartReducer
+      stock: stockReducer
   },
 })
 
