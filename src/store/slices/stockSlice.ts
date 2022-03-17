@@ -1,27 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { setStock } from '../actions/stockActions';
-import { ChartState } from '../../types'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Message, StockState } from '../../types'
 
-const initialState: ChartState = {
-  status: "init",
+const initialState: StockState = {
+  messages: [],
+  isConnected: false
 }
 
-const setStcokPending = (state: ChartState ) => {
-  state.status = "loading";
-}
-
-const setStcokFulfilled = (state: ChartState, action: any ) => {
-
-}
-
-export const chartSlice = createSlice({
-  name: 'chart',
+export const stockSlice = createSlice({
+  name: 'stock',
   initialState,
-  reducers: {},
-  extraReducers: {
-    [setStock.pending as any]: setStcokPending,
-    [setStock.fulfilled as any]: setStcokFulfilled,
-}
+  reducers: {
+    connectionEstablished: (state => {
+      state.isConnected = true;
+    }),
+    receiveMessage: ((state, action: PayloadAction<Message[]>) => {
+      action.payload?.length && action.payload.forEach((item) => {
+        state.messages.push(item);
+      })
+    }),
+  },
 })
 
-export default chartSlice.reducer
+export const stockActions = stockSlice.actions;
+
+export default stockSlice.reducer
