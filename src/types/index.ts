@@ -1,4 +1,5 @@
 export type ChartState = {
-    AAPL?: number[],
-    BTCUSDT?: number[]
+    status: "init" | "loading" | "error" | "success",
+    aapl?: number[],
+    btcusdt?: number[]
 }
