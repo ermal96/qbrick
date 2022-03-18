@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AAPL_STOCK, WS_URL } from "./api/ws";
 import Chart from "./components/Chart";
+import Loader from "./components/Loader";
 import { selectStockState } from "./store/selectors/stockSelector";
 import { stockActions } from "./store/slices/stockSlice";
 
@@ -48,7 +49,7 @@ useEffect(() => {
 
 
 if(!stockState.messages.length) {
-  return <p>Please wait...</p>
+  return <Loader />
 }
   return (
     <Chart stocks={stockState.messages} />
