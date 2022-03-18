@@ -5,10 +5,11 @@ import Sidebar from './Sidebar';
 
 const Wrapper = styled.div`
     display:grid;
-    grid-template-columns: 1fr 3fr;
-    width: 100%;
+    grid-template-columns: 1fr 4fr;
+    width: 100vw;
     min-height: 100vh;
 `;
+
 
 const CustomToolTip = styled.div`
   background-color:  #ffffff;
@@ -44,7 +45,7 @@ const Chart = ({stocks}: any) => {
       return (
         <CustomToolTip>
           <CustomToolTipItem>{`Time: ${label}`}</CustomToolTipItem>
-          <CustomToolTipItem style={{color: "#4941eb"}}>{`Price : ${payload[0].value}`}</CustomToolTipItem>
+          <CustomToolTipItem style={{color: "#4941eb"}}>{`Price : ${payload[0].value} $`}</CustomToolTipItem>
           <CustomToolTipItem style={{color: "#67ca8d"}}>{`Volume: ${payload[1].value}`}</CustomToolTipItem>
         </CustomToolTip>
       );
@@ -57,26 +58,27 @@ const Chart = ({stocks}: any) => {
       <Wrapper>
         <Sidebar data={data[data.length - 1]}
         />
-       <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            bottom: 30,
-            left: 50,
-            right: 50,
-            top: 50
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="TIME" />
-          <YAxis />
-          <Tooltip content={<CustomTooltip  />} />
-          <Line type="monotone" dataKey="PRICE" stroke="#4941eb" activeDot={{ r: 8 }} />
-          <Line type="monotone" dataKey="VOLUME" stroke="#67ca8d" />
-        </LineChart>
-      </ResponsiveContainer>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                width={500}
+                height={300}
+                data={data}
+                margin={{
+                  bottom: 40,
+                  left: 0,
+                  right: 60,
+                  top: 50
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="TIME" />
+                <YAxis />
+                <Tooltip content={<CustomTooltip  />} />
+                <Line type="monotone" dataKey="PRICE" stroke="#4941eb" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="VOLUME" stroke="#67ca8d" />
+              </LineChart>
+            </ResponsiveContainer>
+     
       </Wrapper>
    
   )
