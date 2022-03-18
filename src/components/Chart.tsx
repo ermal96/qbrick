@@ -1,7 +1,9 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import styled from "styled-components";
+import { StcokData, TooltipProps } from '../types';
+import Sidebar from './Sidebar';
 
-const ChartWrapper = styled.div`
+const Wrapper = styled.div`
     display:grid;
     grid-template-columns: 1fr 3fr;
     width: 100%;
@@ -20,14 +22,8 @@ const CustomToolTipItem = styled.p`
   font-size: 14px;
 `;
 
-type ChartData = {
-  PRICE: number,
-  TIME: string,
-  VOLUME: number
-}
-
 const Chart = ({stocks}: any) => {
-  const data: ChartData[] = [];
+  const data: StcokData[] = [];
 
   if(stocks) {
     stocks.forEach((item: {
@@ -43,7 +39,7 @@ const Chart = ({stocks}: any) => {
     })
   }
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload, label }: TooltipProps ) => {
     if (active && payload && payload.length) {
       return (
         <CustomToolTip>
@@ -53,14 +49,14 @@ const Chart = ({stocks}: any) => {
         </CustomToolTip>
       );
     }
-  
     return null;
   };
   
 
   return (
-      <ChartWrapper>
-        <div></div>
+      <Wrapper>
+        <Sidebar data={data[data.length - 1]}
+        />
        <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
@@ -76,12 +72,12 @@ const Chart = ({stocks}: any) => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="TIME" />
           <YAxis />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip  />} />
           <Line type="monotone" dataKey="PRICE" stroke="#4941eb" activeDot={{ r: 8 }} />
           <Line type="monotone" dataKey="VOLUME" stroke="#67ca8d" />
         </LineChart>
       </ResponsiveContainer>
-      </ChartWrapper>
+      </Wrapper>
    
   )
 }
