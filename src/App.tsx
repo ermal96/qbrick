@@ -14,6 +14,7 @@ const App = () => {
   ws.onopen = () => {
     ws.send(AAPL_STOCK);
     dispatch(stockActions.connectionEstablished())
+    console.log("connected");
   };
 
   const connect = useCallback(() => {
@@ -27,15 +28,15 @@ const App = () => {
         console.log(error);
       }
     }
-    ws.onclose = function(e) {
-      console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+    ws.onclose = function() {
+      console.log('Socket is closed. Reconnect will be attempted in 1 second.');
       setTimeout(function() {
         connect();
       }, 1000);
     };
     
-    ws.onerror = function(err) {
-      console.error('Socket encountered error: ', err, 'Closing socket');
+    ws.onerror = function() {
+      console.error('Socket encountered error: Closing socket');
       ws.close();
     };
   }, [dispatch, ws])
