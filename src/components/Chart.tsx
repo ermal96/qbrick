@@ -75,9 +75,9 @@ const Chart = ({stocks, title}: Chartprops) => {
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="TIME" />
-                <YAxis />
+                <YAxis domain={['auto', 'auto']} />
                 <Tooltip content={<CustomTooltip  />} />
-                <Line type="monotone" dataKey="PRICE" stroke="#4941eb" activeDot={{ r: 8 }} />
+                <Line  type="monotone" dataKey="PRICE" stroke="#4941eb" activeDot={{ r: 8 }} />
               </LineChart>
             </ResponsiveContainer>
       </Wrapper>
