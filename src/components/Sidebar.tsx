@@ -51,12 +51,12 @@ const Sidebar = ({data, title}: any) => {
       <Subtitle>AAPL</Subtitle>
       <InfoBox className="time">
           <span>Updated</span>
-          <span>{data?.TIME}</span>
+          <span>{data?.TIME }</span>
       </InfoBox>
 
       <InfoBox className="price">
           <span>Price</span>
-          <span>{data?.PRICE} $</span>
+          <span>{ data?.PRICE ?  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(data?.PRICE)) : ""} </span>
       </InfoBox>
     </SideBar>
   )
