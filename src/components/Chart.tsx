@@ -4,12 +4,12 @@ import { StcokData, TooltipProps } from '../types';
 import Sidebar from './Sidebar';
 
 const Wrapper = styled.div`
-    display:grid;
-    grid-template-columns: 1fr 4fr;
-    width: 100vw;
-    min-height: 100vh;
+  display: grid;
+  grid-template-columns: 30rem 4fr;
+  grid-gap: 3rem;
+  height: 50vh;
+}
 `;
-
 
 const CustomToolTip = styled.div`
   background-color:  #ffffff;
@@ -23,30 +23,34 @@ const CustomToolTipItem = styled.p`
   font-size: 14px;
 `;
 
-const Chart = ({stocks}: any) => {
+
+type Chartprops = {
+  stocks: any,
+  title: string
+}
+
+const Chart = ({stocks, title}: Chartprops) => {
   const data: StcokData[] = [];
 
   if(stocks) {
     stocks.forEach((item: {
       p: number,
       t: number,
-      v: number
     }) => {
       data.push({
         PRICE: item.p,
         TIME: new Date(item.t).toISOString().split("T")[1].split(".")[0],
-        VOLUME: item.v
       })
     })
   }
+
 
   const CustomTooltip = ({ active, payload, label }: TooltipProps ) => {
     if (active && payload && payload.length) {
       return (
         <CustomToolTip>
-          <CustomToolTipItem>{`Time: ${label}`}</CustomToolTipItem>
-          <CustomToolTipItem style={{color: "#4941eb"}}>{`Price : ${payload[0].value} $`}</CustomToolTipItem>
-          <CustomToolTipItem style={{color: "#67ca8d"}}>{`Volume: ${payload[1].value}`}</CustomToolTipItem>
+          <CustomToolTipItem>{`Updated: ${label}`}</CustomToolTipItem>
+          <CustomToolTipItem style={{color: "#4941eb"}}>{`Price : ${ new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(payload[0].value)) }`}</CustomToolTipItem>
         </CustomToolTip>
       );
     }
@@ -56,15 +60,14 @@ const Chart = ({stocks}: any) => {
 
   return (
       <Wrapper>
-        <Sidebar data={data[data.length - 1]}
-        />
-            <ResponsiveContainer width="100%" height="100%">
+        <Sidebar data={data[data.length - 1]} title={title} />
+        <ResponsiveContainer height="100%">
               <LineChart
-                width={500}
-                height={300}
+                width={1000}
+                height={550}
                 data={data}
                 margin={{
-                  bottom: 40,
+                  bottom: 100,
                   left: 0,
                   right: 60,
                   top: 50
@@ -75,10 +78,8 @@ const Chart = ({stocks}: any) => {
                 <YAxis />
                 <Tooltip content={<CustomTooltip  />} />
                 <Line type="monotone" dataKey="PRICE" stroke="#4941eb" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="VOLUME" stroke="#67ca8d" />
               </LineChart>
             </ResponsiveContainer>
-     
       </Wrapper>
    
   )

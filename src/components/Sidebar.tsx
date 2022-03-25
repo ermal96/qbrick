@@ -1,11 +1,9 @@
-import { SidebarProps } from "../types";
 import styled from "styled-components";
 
 const SideBar = styled.nav`
   padding: 4rem;
   background-image: linear-gradient( 112.1deg,  rgba(32,38,57,1) 11.4%, rgba(63,76,119,1) 70.2% );
 `;
-
 const Title = styled.h1`
   font-size: 2.3rem;
   color: white;
@@ -45,25 +43,20 @@ const InfoBox = styled.div`
  
 `;
 
-const Sidebar = ({data}: SidebarProps) => {
+const Sidebar = ({data, title}: any) => {
 
   return (
     <SideBar>
-      <Title>APPLE STOCK</Title>
+      <Title>{title}</Title>
       <Subtitle>AAPL</Subtitle>
       <InfoBox className="time">
           <span>Updated</span>
-          <span>{data.TIME}</span>
-      </InfoBox>
-
-      <InfoBox className="volume">
-          <span>Volume</span>
-          <span>{data.VOLUME}</span>
+          <span>{data?.TIME}</span>
       </InfoBox>
 
       <InfoBox className="price">
           <span>Price</span>
-          <span>{data.PRICE} $</span>
+          <span>{data?.PRICE} $</span>
       </InfoBox>
     </SideBar>
   )

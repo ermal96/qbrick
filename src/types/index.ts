@@ -1,5 +1,6 @@
 export type StockState = {
-    messages: Message[],
+    aapl: Message[],
+    btcusdt: Message[],
     isConnected: boolean,
 }
 
@@ -7,12 +8,12 @@ export type Message = {
     p: number[], // price
     t: number[], // timestamp
     v: number[], // volume
+    s: "AAPL" | "BINANCE:BTCUSDT"
 }
 
 export type StcokData = {
     PRICE: number,
     TIME: string,
-    VOLUME: number
   }
 
 export type TooltipProps = {

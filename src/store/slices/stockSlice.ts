@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Message, StockState } from '../../types'
 
 const initialState: StockState = {
-  messages: [],
+  aapl: [],
+  btcusdt: [],
   isConnected: false
 }
 
@@ -15,7 +16,17 @@ export const stockSlice = createSlice({
     }),
     receiveMessage: ((state, action: PayloadAction<Message[]>) => {
       action.payload?.length && action.payload.forEach((item) => {
-        state.messages.push(item);
+        switch (item.s) {
+          case "AAPL":
+             state.aapl.push(item);
+            break;
+          case "BINANCE:BTCUSDT":
+              state.btcusdt.push(item);
+             break;
+          default:
+            break;
+        }
+       
       })
     }),
   },

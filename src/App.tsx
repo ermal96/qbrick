@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AAPL_STOCK, WS_URL } from "./api/ws";
+import { AAPL_STOCK, BTCUSDT, WS_URL } from "./api/ws";
 import Chart from "./components/Chart";
 import Loader from "./components/Loader";
 import { selectStockState } from "./store/selectors/stockSelector";
@@ -14,6 +14,7 @@ const App = () => {
 
   ws.onopen = () => {
     ws.send(AAPL_STOCK);
+    ws.send(BTCUSDT);
     dispatch(stockActions.connectionEstablished())
     console.log("connected");
   };
@@ -48,11 +49,16 @@ useEffect(() => {
 }, [connect])
 
 
-if(!stockState.messages.length) {
+if(!stockState.aapl.length && !stockState.btcusdt.length) {
   return <Loader />
 }
+
   return (
-    <Chart stocks={stockState.messages} />
+    <>
+      <Chart title="APPLE STOCK" stocks={stockState.aapl} />
+      <Chart title="BITCOIN" stocks={stockState.btcusdt} />
+    </>
+
   );
 }
 
