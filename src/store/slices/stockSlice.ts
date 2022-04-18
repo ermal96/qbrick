@@ -18,10 +18,10 @@ export const stockSlice = createSlice({
       action.payload?.length && action.payload.forEach((item) => {
         switch (item.s) {
           case "AAPL":
-             state.aapl.push(item);
+             state.aapl = [...state.aapl, item];
             break;
           case "BINANCE:BTCUSDT":
-              state.btcusdt.push(item);
+              state.btcusdt = [...state.btcusdt, item];
              break;
           default:
             break;
