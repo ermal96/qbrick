@@ -5,9 +5,22 @@ import Sidebar from './Sidebar';
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 30rem 4fr;
-  grid-gap: 3rem;
-  height: 50vh;
+  grid-template-columns: 1fr;
+
+  .recharts-responsive-container{
+    min-height: 4rem;
+  }
+
+  .recharts-wrapper {
+    height: 400px !important;
+  }
+
+  @media(min-width: 768px) {
+    display: grid;
+    grid-template-columns: 30rem 4fr;
+    grid-gap: 3rem;
+    height: 50vh;
+  }
 }
 `;
 
@@ -61,10 +74,8 @@ const Chart = ({stocks, title}: Chartprops) => {
   return (
       <Wrapper>
         <Sidebar data={data[data.length - 1]} title={title} />
-        <ResponsiveContainer height="100%">
+        <ResponsiveContainer width="100%" height="100%">
               <LineChart
-                width={1000}
-                height={550}
                 data={data}
                 margin={{
                   bottom: 100,
