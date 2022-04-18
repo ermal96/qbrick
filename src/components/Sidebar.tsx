@@ -51,7 +51,7 @@ const Sidebar = ({data, title}: any) => {
   return (
     <SideBar>
       <Title>{title}</Title>
-      <Subtitle>AAPL</Subtitle>
+      <Subtitle>{title.toLowerCase() === "bitcoin"} ? BTCUSDT : AAPL</Subtitle>
       <InfoBox className="time">
           <span>Updated</span>
           <span>{data?.TIME }</span>
